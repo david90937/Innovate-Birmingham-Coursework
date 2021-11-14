@@ -1,0 +1,15 @@
+{
+  "name": "nodefun",
+  "version": "1.0.0",
+  "description": "First node lab",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "David Robinette",
+  "license": "ISC",
+  "dependencies": {
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6"
+  }
+}

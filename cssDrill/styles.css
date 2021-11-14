@@ -1,0 +1,100 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: lightgray;
+}
+
+h1 {
+    color:teal;
+}
+
+H2, p, .readme-wrapper {
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+    color: red;
+    
+}
+
+a:hover {
+    font-weight: bold;
+    color: green;
+    cursor: pointer;
+}
+
+span {
+    font-weight: bold;
+    color: blue;
+}
+
+ul {
+    color: crimson;
+}
+
+.boxes {
+    margin: 1em;
+    padding: .5em;
+    border: .2em solid forestgreen;
+    border-radius: 1em;
+    width: 30em;
+    display: block;
+}
+
+.customname {
+    height: 50px;
+    width: 50px;
+    border-radius: 50px;
+    position: relative;
+    left: 5em;
+    top: 4em;
+    background-color: tomato;
+}
+
+.original {
+    color:turquoise;
+}
+
+.star {
+    color: teal;
+}
+
+#box1 {
+    background-color: white;
+}
+
+#box2 {
+    background-color: whitesmoke;
+}
+
+#box3 {
+    background-color: wheat;
+}
+
+#box4 {
+    background-color: yellow;
+}
+
+#rank1 {
+    color: white;
+}
+
+#rank2 {
+    color: black;
+}
+
+#rank3 {
+    color: red;
+}
+
+#rank4 {
+    color: blue;
+}
+
+#rank5 {
+    color: green;
+}
+
+#wars {
+    color: navy;
+}
