@@ -54,9 +54,7 @@ const Chirp = ({ userName, input, id, counter, setCounter }) => {
             <div className="users col-2">
                 <p onClick={async () => {
                     let mentionChirps = await getChirpIDs(userName);
-                    console.log(mentionChirps);
-                    console.log(createMentionList(mentionChirps));
-                    console.log('clicked')
+                    createMentionList(mentionChirps).then(val => console.log(val))
                     //createMentionList({userName})
                 }}>
                     User: {userName}</p>

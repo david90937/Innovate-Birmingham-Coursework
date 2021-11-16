@@ -1,24 +1,36 @@
 import React, { useState } from 'react';
 import Chirp from './Chirp';
 
-export async function createMentionList(mentionChirps) {
-    console.log(mentionChirps)
-    let chirpArray = [];
-    for (let i = 0; i < mentionChirps.length; i++) {
-        let result = await fetch(`/api/chirps/${mentionChirps[i].chirpid}`);
-        console.log(result);
-        chirpArray.push(result);
-    }
-    const resolved = await Promise.all(chirpArray);
+// export async function createMentionList(mentionChirps) {
+//     let chirpArray = mentionChirps.map(async (chirp) => {
+//         let result = await fetch(`/api/chirps/${chirp.chirpid}`).then((res) => res.json())
+//         return result
+//     });
+//     return chirpArray
+// }
 
-    console.log(resolved)
-    // let chirpArray = mentionChirps.map(async (chirp) => {
-    //     let result = await fetch(`/api/chirps/${chirp.chirpid}`);
-    //     return result
-    // })
-    // return chirpArray
+export async function createMentionList(mentionChirps) {
+    let chirpArray = mentionChirps.map(async (chirp) => {
+        let result = await fetch(`/api/chirps/${chirp.chirpid}`);
+        return await result.json();
+    });
+    console.log(chirpArray)
+    return chirpArray
 }
 
+// const resolved = await (chirpArray);
+// console.log(resolved)
+
+// let chirpArray = [];
+// for (let i = 0; i < mentionChirps.length; i++) {
+//     let result = await fetch(`/api/chirps/${mentionChirps[i].chirpid}`);
+//     console.log(result);
+//     chirpArray.push(result.json());
+// }
+// let chirpArray = mentionChirps.map(async (chirp) => {
+//     let result = await fetch(`/api/chirps/${chirp.chirpid}`)
+//     return result   
+// })
 export async function getChirpIDs(userName: any) {
     const res = await fetch(`/api/mention/${userName}`);
     const userMentionedChirps = await res.json();

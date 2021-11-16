@@ -55,6 +55,7 @@ router.post('/api/chirps', async (req, res) => {
     }
     catch(err) {
         if(err) console.log(err);
+        res.sendStatus(500);
     }
 })
 
@@ -66,6 +67,7 @@ router.post('/api/mention', async (req, res) => {
     }
     catch(err) {
         if(err) console.log(err);
+        res.sendStatus(500);
     }
 })
 
@@ -77,6 +79,7 @@ router.put('/api/chirps/', async(req, res) => {
     }
     catch(err) {
         if(err) console.log(err)
+        res.sendStatus(500);
     }
 })
 
@@ -88,6 +91,7 @@ router.delete('/api/chirps/', async(req, res) => {
     }
     catch(err){
         if(err) console.log(err)
+        res.sendStatus(500);
     }
 })
 
