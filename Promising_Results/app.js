@@ -164,59 +164,83 @@
 //     return [weight1, weight2]
 //   }
 
-function commonSubseq(s1, s2) {
+// function commonSubseq(s1, s2) {
 
-    // let string1 = Array.from(s1);
-    // let string2 = Array.from(s2);
+//     // let string1 = Array.from(s1);
+//     // let string2 = Array.from(s2);
 
-    // let result = string1.filter((i, index) => {
-    //     let stringArr = [];
-    //     if (i == s2[index]) {
-    //         stringArr.push(i)
-    //     }
-    //     // console.log(i)
-    //     console.log(i);
-    //     console.log(s2[index])
-    //     return stringArr
-    // })
-    // console.log(result);
-    let result = [];
-    let test = [];
-    let strippedString = []
+//     // let result = string1.filter((i, index) => {
+//     //     let stringArr = [];
+//     //     if (i == s2[index]) {
+//     //         stringArr.push(i)
+//     //     }
+//     //     // console.log(i)
+//     //     console.log(i);
+//     //     console.log(s2[index])
+//     //     return stringArr
+//     // })
+//     // console.log(result);
+//     let result = [];
+//     let test = [];
+//     let strippedString = []
 
-    for (let x = 0; x < s2.length; x++) {
-        if (s1.includes(s2[x])) {
-            strippedString.push(s2[x])
-        }
-    }
+//     for (let x = 0; x < s2.length; x++) {
+//         if (s1.includes(s2[x])) {
+//             strippedString.push(s2[x])
+//         }
+//     }
 
-    for (let i = 0; i < s1.length; i++) {
+//     for (let i = 0; i < s1.length; i++) {
 
-        // if (!s2.includes(s1[i])) {
-        //     strippedString.push()
-        // }
+//         // if (!s2.includes(s1[i])) {
+//         //     strippedString.push()
+//         // }
 
-        //console.log(s1.substring(i))
+//         //console.log(s1.substring(i))
 
-        if (s2.includes(s1.substring(i))) {
-            test.push(i)
-            //console.log(test)
-        }
+//         if (s2.includes(s1.substring(i))) {
+//             test.push(i)
+//             //console.log(test)
+//         }
         
-        if (s2.indexOf(s1[i]) < i) {
-            if (s1.substring(i).includes(s2[i])){
-                result.push(s1[i])
-            }
-        }
+//         if (s2.indexOf(s1[i]) < i) {
+//             if (s1.substring(i).includes(s2[i])){
+//                 result.push(s1[i])
+//             }
+//         }
         
-        else if (s2.substring(i).includes(s1[i])){
-            // console.log(i)
-            // console.log(s2.substring(i))
-            result.push(s1[i])
-        }   
-    }
-    //console.log(result)
-};
+//         else if (s2.substring(i).includes(s1[i])){
+//             // console.log(i)
+//             // console.log(s2.substring(i))
+//             result.push(s1[i])
+//         }   
+//     }
+//     //console.log(result)
+// };
 
-commonSubseq("ABAZDC", "BACBAD")
-commonSubseq("AGGTAB", "GXTXAYB")
+// commonSubseq("ABAZDC", "BACBAD")
+// commonSubseq("AGGTAB", "GXTXAYB")
+
+
+function oneCharLeftBehind(string) {
+    return string.slice(0, (string.length -1))
+}
+
+console.log(oneCharLeftBehind('apple'));
+
+function sortDescending(num) {
+    let numString = String(num);
+    let splitString = numString.split('')
+    let numArray = splitString.map(element => Number(element))
+    return(numArray.sort().reverse())
+}
+
+function countDays(date1, date2){
+    let first = new Date(date1)
+    let second = new Date(date2)
+    let timeinMilliseconds = first.getTime() - second.getTime()
+    let timeinDays = Math.round(timeinMilliseconds / (1000 * 60 * 60 * 24))
+    return timeinDays
+}
+
+console.log(countDays("June 14, 2020", "December 25, 2019"))

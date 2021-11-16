@@ -20,17 +20,29 @@ const ChirpFeed = ({ user, message, handleUserInput, handleUserMessage }) => {
         })
     }, [counter])
 
-    // useEffect(() => {
-    //     getChirps().then(chirps => {
-    //         setArray(chirps)
-    //     })
-    // }, [counter])
-
-    function getChirps() {
+    async function getChirps() {
         return fetch('/api/chirps').then(response => response.json())
     }
 
-    function sendChirp(chirp: { userid: any; content: string; location: string; }) {
+    async function sendChirp(chirp: { userid: any; content: string; location: string; }) {
+        if (chirp.content.includes('@')){
+            let words = chirp.content.split(' ')
+            let nameIndex = words.findIndex(element => element[0] =='@')
+            let userName = words[nameIndex].slice(1, (words.length));
+            let getID = await fetch('/api/lastID').then(response => response.json())
+            let chirpID = (getID[0].id +1);
+            fetch('/api/mention', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    userName: userName,
+                    chirpID: chirpID
+                })
+            })
+        }
+
         fetch('/api/chirps', {
             method: 'POST',
             headers: {
@@ -38,6 +50,7 @@ const ChirpFeed = ({ user, message, handleUserInput, handleUserMessage }) => {
             },
             body: JSON.stringify(chirp)
         })
+        setCounter(counter +1);
     }
 
     return (
@@ -45,13 +58,11 @@ const ChirpFeed = ({ user, message, handleUserInput, handleUserMessage }) => {
             <input type="text" onChange={e => handleUserInput(e.target.value)} placeholder="Username" value={user} />
             <input type="text" onChange={e => handleUserMessage(e.target.value)} placeholder="Message" value={message} />
             <button onClick={() => {
-                console.log(chirpArray)
                 let chirp = {
                     userid: user,
                     content: message,
                     location: 'birmingham'
                 }
-                setCounter(counter +1);
                 sendChirp(chirp)
                 // if (chirpArray.length > 7) {
                 //     let arrayCopy = [...chirpArray];

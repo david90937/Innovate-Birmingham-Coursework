@@ -4,10 +4,6 @@ import db from './db';
 
 const router = express.Router();
 
-router.get('/api/hello', (req, res, next) => {
-    res.json('World')
-});
-
 router.get('/api/chirps', async (req, res) => {
     try {
         res.json(await db.chirps.all());
@@ -16,6 +12,16 @@ router.get('/api/chirps', async (req, res) => {
     catch(e) {
         console.log(e)
         res.sendStatus(500)
+    }
+})
+
+router.get('/api/mention/:userName', async (req, res) => {
+    try {
+        res.json(await db.chirps.sendMentions(req.params.userName));
+    }
+    catch (e) {
+        console.log(e)
+        res.sendStatus(500);
     }
 })
 
@@ -30,10 +36,32 @@ router.get('/api/chirps/:id', async (req, res) => {
     }
 });
 
+router.get('/api/lastID', async (req, res) => {
+    try {
+        res.json((await db.chirps.getID()));
+    }
+
+    catch(e) {
+        console.log(e)
+        res.sendStatus(500)
+    }
+})
+
 router.post('/api/chirps', async (req, res) => {
     try {
         const body = req.body;
         await db.chirps.sendChirp(body.userid, body.content, body.location)
+        res.sendStatus(200);
+    }
+    catch(err) {
+        if(err) console.log(err);
+    }
+})
+
+router.post('/api/mention', async (req, res) => {
+    try {
+        const body = req.body;
+        await db.chirps.createMention(body.userName, body.chirpID)
         res.sendStatus(200);
     }
     catch(err) {

@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { Modal } from 'react-bootstrap';
+import { createMentionList, getChirpIDs } from './Mentions'
 
 const Chirp = ({ userName, input, id, counter, setCounter }) => {
     const [modal, setModal] = useState(false);
     const [editInput, setInput] = useState('');
+    //const [mentionArray, setMentionArray] = useState([]);
 
     const handleEdit = () => {
         if (modal) {
@@ -30,7 +32,7 @@ const Chirp = ({ userName, input, id, counter, setCounter }) => {
             },
             body: JSON.stringify(data)
         })
-        setCounter(counter +1);
+        setCounter(counter + 1);
         setModal(false);
     }
 
@@ -45,12 +47,19 @@ const Chirp = ({ userName, input, id, counter, setCounter }) => {
             },
             body: JSON.stringify(data)
         })
-        setCounter(counter +1)
+        setCounter(counter + 1)
     }
     return (
         <div className="row" onDoubleClick={handleEdit}>
             <div className="users col-2">
-                <p>User: {userName}</p>
+                <p onClick={async () => {
+                    let mentionChirps = await getChirpIDs(userName);
+                    console.log(mentionChirps);
+                    console.log(createMentionList(mentionChirps));
+                    console.log('clicked')
+                    //createMentionList({userName})
+                }}>
+                    User: {userName}</p>
             </div>
             <div className="messages col-8">
                 <p>{input}</p>
