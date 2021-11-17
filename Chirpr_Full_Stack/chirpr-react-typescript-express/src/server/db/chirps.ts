@@ -20,6 +20,8 @@ const updateChirp = (content: any, id: any) => Query('UPDATE chirps set content 
 
 const deleteChirp = (id: number) => Query('DELETE from chirps WHERE id = ?', [id])
 
+const deleteMention = (id: number) => Query('DELETE from mentions WHERE chirpid = ?', [id])
+
 export default {
     all,
     one,
@@ -28,5 +30,6 @@ export default {
     deleteChirp,
     getID,
     createMention,
-    sendMentions
+    sendMentions,
+    deleteMention
 }

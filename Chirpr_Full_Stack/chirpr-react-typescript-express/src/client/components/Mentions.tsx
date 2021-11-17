@@ -1,45 +1,26 @@
 import React, { useState } from 'react';
 import Chirp from './Chirp';
 
-// export async function createMentionList(mentionChirps) {
-//     let chirpArray = mentionChirps.map(async (chirp) => {
-//         let result = await fetch(`/api/chirps/${chirp.chirpid}`).then((res) => res.json())
-//         return result
-//     });
-//     return chirpArray
-// }
 
-export async function createMentionList(mentionChirps) {
-    let chirpArray = mentionChirps.map(async (chirp) => {
-        let result = await fetch(`/api/chirps/${chirp.chirpid}`);
+export async function fetchMentionList(mentionIds) {
+    const mentionPromises = mentionIds.map(async (mention: { chirpid: any; }) => {
+        const result = await fetch(`/api/chirps/${mention.chirpid}`);
         return await result.json();
     });
-    console.log(chirpArray)
-    return chirpArray
+    const mentions = await Promise.all(mentionPromises);
+    return mentions;
 }
 
-// const resolved = await (chirpArray);
-// console.log(resolved)
-
-// let chirpArray = [];
-// for (let i = 0; i < mentionChirps.length; i++) {
-//     let result = await fetch(`/api/chirps/${mentionChirps[i].chirpid}`);
-//     console.log(result);
-//     chirpArray.push(result.json());
-// }
-// let chirpArray = mentionChirps.map(async (chirp) => {
-//     let result = await fetch(`/api/chirps/${chirp.chirpid}`)
-//     return result   
-// })
 export async function getChirpIDs(userName: any) {
     const res = await fetch(`/api/mention/${userName}`);
     const userMentionedChirps = await res.json();
     return userMentionedChirps;
 }
 
-const Mentions = ({ mentionArray }) => {
+const Mentions = ({mentions}) => {
     const [counter, setCounter] = useState(0);
-
+    const handleMentions = (val: React.SetStateAction<any[]>) => console.log(val);
+    
     // useEffect(() => {
     //     let mounted = true;
     //     getMentions().then(mentions => {
@@ -50,8 +31,8 @@ const Mentions = ({ mentionArray }) => {
     //     })
     // }, [counter])
 
-    const mentionList = mentionArray.map((val, index) => {
-        return <Chirp userName={val.userid} input={val.content} id={val.id} counter={counter} setCounter={setCounter} key={`mention-${index}`} />
+    const mentionList = mentions.map((val, index) => {
+        return <Chirp userName={val.userid} input={val.content} id={val.id} counter={counter} setCounter={setCounter} handleMentions={handleMentions} key={`mention-${index}`} />
     });
 
     return (
@@ -61,6 +42,4 @@ const Mentions = ({ mentionArray }) => {
     );
 }
 
-export default {
-    Mentions
-}
+export default Mentions

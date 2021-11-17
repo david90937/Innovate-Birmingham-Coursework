@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import ChirpFeed from './components/ChirpFeed';
+import Footer from './components/Footer';
 
 
 const App = () => {
@@ -18,6 +19,9 @@ const App = () => {
                 user={user}
                 message={message}
             ></ChirpFeed>
+            <div className="fixed-bottom">
+                <Footer></Footer>
+            </div>
         </div>
     )
 }

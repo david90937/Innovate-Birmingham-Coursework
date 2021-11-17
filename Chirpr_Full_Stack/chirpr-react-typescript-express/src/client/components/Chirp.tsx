@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Modal } from 'react-bootstrap';
-import { createMentionList, getChirpIDs } from './Mentions'
+import { fetchMentionList, getChirpIDs } from './Mentions'
 
-const Chirp = ({ userName, input, id, counter, setCounter }) => {
+const Chirp = ({ userName, input, id, counter, setCounter, handleMentions}) => {
     const [modal, setModal] = useState(false);
     const [editInput, setInput] = useState('');
     //const [mentionArray, setMentionArray] = useState([]);
@@ -40,6 +40,16 @@ const Chirp = ({ userName, input, id, counter, setCounter }) => {
         let data = {
             id: id
         }
+        if (input.includes('@')){
+            console.log('working')
+            fetch('/api/mention', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+        }
         fetch('/api/chirps', {
             method: 'DELETE',
             headers: {
@@ -53,9 +63,9 @@ const Chirp = ({ userName, input, id, counter, setCounter }) => {
         <div className="row" onDoubleClick={handleEdit}>
             <div className="users col-2">
                 <p onClick={async () => {
-                    let mentionChirps = await getChirpIDs(userName);
-                    createMentionList(mentionChirps).then(val => console.log(val))
-                    //createMentionList({userName})
+                    let mentionIds = await getChirpIDs(userName);
+                    console.log(mentionIds)
+                    handleMentions(await fetchMentionList(mentionIds))
                 }}>
                     User: {userName}</p>
             </div>

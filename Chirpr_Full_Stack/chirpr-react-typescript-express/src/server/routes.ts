@@ -94,5 +94,16 @@ router.delete('/api/chirps/', async(req, res) => {
         res.sendStatus(500);
     }
 })
+router.delete('/api/mention', async(req, res) => {
+    const body = req.body;
+    try {
+        await db.chirps.deleteMention(body.id)
+        res.sendStatus(200);
+    }
+    catch(err){
+        if(err) console.log(err)
+        res.sendStatus(500);
+    }
+})
 
 export default router;
